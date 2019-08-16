@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BeaconAPI</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Beacone API</h1>
+        <h4>Useful for sending data to server when response is not request e.g analytics data etc.</h4>
+        <em>Browser will send data asynchronously when in idle stat</em>
+
+        <div>
+            <button id="btnHi">Say Hi!</button>
+            <button id="btnBye">Say Bye!</button>
+        </div>
+    </div>
+
+    <script>
+
+        beaconUrl = "https://putsreq.com/9d530Ux9yuSogTkFv1PR";
+
+        function sendEvent(eventStr) {
+            if (navigator.sendBeacon) {
+                //checks if beaconapi is supported or is ready to send data
+                //data can be string, image, blob, array etc.
+                navigator.sendBeacon(beaconUrl, eventStr);
+                console.info("Data sent to putsreq!", eventStr);
+            }
+        }
+
+        window.addEventListener('load', function () {
+            sendEvent('Page loaded!!!');
+
+            var btnHi = document.getElementById('btnHi');
+            var btnBye = document.getElementById('btnBye');
+
+            btnHi.addEventListener('click', function () {
+                sendEvent('Hi From browser!!!');
+            });
+
+            btnBye.addEventListener('click', function () {
+                sendEvent('Bye From browser!!!');
+            });
+        });
+
+        window.addEventListener('unload', function () {
+            sendEvent('Page unloaded!!!');
+        });
+
+
+
+    </script>
+</body>
+
+</html>
