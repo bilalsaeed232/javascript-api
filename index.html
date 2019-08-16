@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Preloading</title>
+    <link rel="preload" href="images/pc.jpg" as="image">
+
+    <style>
+        #target_element {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            background: url('images/pc.jpg');
+            width: 960px;
+            height: 800px;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>Preloading Content into this page</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus ad quod tempora corrupti odio error,
+            voluptatum soluta debitis a officiis sunt veniam adipisci impedit amet vel repudiandae omnis nesciunt
+            pariatur.</p>
+        <div id="target_element">
+
+        </div>
+
+
+    </div>
+</body>
+
+</html>
