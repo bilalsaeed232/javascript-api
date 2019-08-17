@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DeviceMemory API</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>DeviceMemory API</h1>
+        <p>To query how much memory a device has, only rounds up memory, it doesn't tell exact memory available to avoid
+            device fingerprinting</p>
+        <div>
+            <strong>Device Memory:</strong> <span id="memoryElement"></span>
+        </div>
+
+    </div>
+
+    <script>
+
+        window.addEventListener('load', init);
+
+        var memoryElement;
+
+        function init() {
+            memoryElement = document.getElementById('memoryElement');
+
+            //feature detection of memory api
+            if (navigator.deviceMemory) {
+                memoryElement.textContent = navigator.deviceMemory + " GB";
+            }
+        }
+
+    </script>
+</body>
+
+</html>
