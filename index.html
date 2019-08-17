@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LocalForage API</title>
+
+    <script src="localforage.min.js"></script>
+
+    <style>
+        .form-field {
+            display: inline-block;
+        }
+
+        button {
+            background: none;
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        #setBtn {
+            color: #fff;
+            background-color: green;
+        }
+
+        #getBtn {
+            color: #fff;
+            background-color: orange;
+        }
+
+        #removeBtn {
+            color: #fff;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>LocalForage</h1>
+        <p>Below is the demonstration of what localforage api can do</p>
+
+
+
+        <div class="form-field">
+            <label for="key">key: <input type="text" id="key"></label>
+        </div>
+        <div class="form-field">
+            <label for="value">value: <input type="text" id="value"></label>
+        </div>
+        <div class="form-field">
+            <button id="setBtn">SET Value</button>
+        </div>
+        <div class="form-field">
+            <button id="getBtn">GET Value</button>
+        </div>
+        <div class="form-field">
+            <button id="removeBtn">REMOVE Value</button>
+        </div>
+        <div id="result">
+            <p>Result: <strong></strong></p>
+        </div>
+
+    </div>
+
+
+    <script>
+        window.addEventListener('load', init);
+
+
+        function init() {
+            //grab key and value fields from DOM
+            var keyElement = document.getElementById('key');
+            var valueElement = document.getElementById('value');
+            var resultElement = document.querySelector('#result strong');
+
+            //grab all the buttons from DOM
+            var setBtn = document.getElementById('setBtn');
+            var getBtn = document.getElementById('getBtn');
+            var removeBtn = document.getElementById('removeBtn');
+
+
+            //store value against key using localforage
+            setBtn.addEventListener('click', function () {
+                //grab actual text from key value
+                var key = keyElement.value;
+                var val = valueElement.value;
+
+
+                localforage.setItem(key, val).then(function (data) {
+                    var result = "Successfully set, " + data;
+                    console.log(result);
+                    resultElement.innerHTML = result;
+                });
+            });
+
+
+            //get value against key from indexDB using localforage
+            getBtn.addEventListener('click', function () {
+                var key = keyElement.value;
+
+                localforage.getItem(key).then(function (returnedValue) {
+                    console.log("Data: ", [key, returnedValue]);
+
+                    resultElement.innerHTML = returnedValue ? returnedValue : "Doesn't Exist!!!";
+
+                }).catch(function (error) {
+                    console.warn("ERROR:", error);
+                })
+            });
+
+
+            //remove value against a key
+            removeBtn.addEventListener('click', function () {
+                var key = keyElement.value;
+
+                localforage.removeItem(key).then(function (data) {
+                    console.log("Removed " + key + " successfully!", data);
+                });
+            });
+
+
+
+        }
+
+
+    </script>
+</body>
+
+</html>
