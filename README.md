@@ -14,6 +14,7 @@ Third party api provided by ```Modzilla``` to make working with complex ```Index
 - Can create multiple instances of ```localforage``` for separate datastore
 - Can store more than just text
 - Functions used in this api returns ```promises```
+- Multiple instances of ```localforage``` can be used (which creats multiple databases)
 
 ## References
 - [MDN - IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
