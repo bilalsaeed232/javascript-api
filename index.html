@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CacheAPI</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Cache API</h1>
+        <p>Cache API is used to store server HTTP responses in order for your web apps to work offline or to reduce
+            bandwidth</p>
+        <em>Open your console and check if the cache is hit after subsequent requests.</em>
+
+        <br>
+        <br>
+        <button id="getBtn">Get JSON Data</button>
+        <button id="clearBtn">Clear Local Cache</button>
+    </div>
+
+
+    <script>
+        window.addEventListener('load', init);
+
+        var getBtnElement, clearBtnElement;
+        const URL = 'https://httpbin.org/json';
+        const CACHE_NAME = 'my-cache';
+        function init() {
+            getBtnElement = document.getElementById('getBtn');
+            clearBtnElement = document.getElementById('clearBtn');
+
+            getBtnElement.addEventListener('click', function () {
+                //grab json from url
+                getJSON();
+            });
+
+            clearBtnElement.addEventListener('click', function () {
+                //clear local cache
+                window.caches.delete(CACHE_NAME).then(function (result) {
+                    console.log((result ? "Cache cleared.." : "Unable to clear Cache!!"));
+                })
+            });
+        }
+
+        function getJSON() {
+            //check if even cache exists at all
+            if ('caches' in window) {
+                //open the cache in order to see whats inside
+                caches.open(CACHE_NAME).then(function (cache) {
+                    //check if this url is already cached
+                    cache.match(URL).then(function (cachedData) {
+                        if (cachedData === undefined) {
+                            fetchAndCache(cache);
+                        } else {
+                            fetchCachedData(cachedData);
+                        }
+                    });
+                });
+            }
+        }
+
+        function fetchAndCache(cache) {
+            fetch(URL).then(function (response) {
+                //clone original response to avoid unnecessary cache hit, because we need this response now in console
+                let clonedResp = response.clone();
+
+                //actually store this response in cache
+                cache.put(URL, response);
+
+                clonedResp.text().then(function (text) {
+                    console.log(text);
+                });
+
+            });
+        }
+
+        function fetchCachedData(cachedData) {
+            cachedData.text().then(function (text) {
+                console.log("Cache Hit:", URL, text);
+            });
+        }
+
+
+    </script>
+</body>
+
+</html>
