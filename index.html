@@ -20,9 +20,15 @@
     <script>
         window.addEventListener("load", init);
 
-        const URL = "https://httpbin.org/json";
+        const URL_GET = "https://httpbin.org/json";
+        const URL_POST = "https://httpbin.org/post";
         function init() {
-            fetch(URL).then(function (response) {
+            makeGetRequest();
+            makePostRequest();
+        }
+
+        function makeGetRequest() {
+            fetch(URL_GET).then(function (response) {
                 console.log("Content-type:", response.headers.get('Content-Type'));
                 console.log("Redirected:", response.redirected);
                 console.log("Status:", response.status);
@@ -36,6 +42,25 @@
                 console.log("Returned Get Data: ", returnedData);
             }).catch(function (error) {
                 console.warn("Error:", error);
+            });
+        }
+
+
+        function makePostRequest() {
+            fetch(URL_POST, {
+                'method': 'post',
+                'body': 'bilal=awesome',
+                'headers': {
+                    'my-custom-header': 'my-custom-value'
+                }
+            }).then(function (response) {
+                if (response.status == 200) {
+                    return response.text();
+                }
+            }).then(function (returnedData) {
+                console.log("POST request Response:", returnedData);
+            }).catch(function (error) {
+                console.warn("Error (Post Request): ", error);
             });
         }
 
