@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Storage API</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Storage API</h1>
+        <p>This api is used to identify how much available storage our web App has also how much is being currently
+            used.</p>
+        <p>Not only that it can also ask browser to prioritize our offline data and keep it persisted.</p>
+        <em>Below is the stats calculated using this API.</em>
+
+        <br>
+        <br>
+        <div>
+            <strong>Storage Quota:</strong> <span id="quota"></span>
+        </div>
+        <br>
+        <div>
+            <strong>Storage Used:</strong> <span id="used"></span>
+        </div>
+        <br>
+        <div>
+            <strong>Storage Persistence?:</strong> <span id="persistence"></span>
+        </div>
+        <br>
+
+        <br>
+        <button id="btnReqPersist">Request Storage Persistence</button>
+    </div>
+
+
+
+    <script>
+        window.addEventListener('load', init);
+
+        var quotaElement, usedElement, persistenceElement, reqBtnElement;
+
+        function init() {
+            quotaElement = document.getElementById('quota');
+            usedElement = document.getElementById('used');
+            persistenceElement = document.getElementById('persistence');
+            reqBtnElement = document.getElementById('btnReqPersist');
+
+            //check if storageAPI is supported and also if estimate is available
+            if (navigator.storage && navigator.storage.estimate) {
+                //estimate how much storage is used and available
+                navigator.storage.estimate().then(function (result) {
+                    quotaElement.textContent = result.quota;
+                    usedElement.textContent = result.usage;
+                });
+            }
+
+
+            //check if storageAPI is supported and also if persistence is available
+            if (navigator.storage && navigator.storage.persisted) {
+                //check if that the browser agrees on our offline data persistence
+                navigator.storage.persisted().then(function (result) {
+                    persistenceElement.textContent = result ? "True" : "false";
+                });
+            }
+
+            //request browser to persist(give priority) our offline data
+            reqBtnElement.addEventListener('click', function () {
+                if (navigator.storage && navigator.storage.persist) {
+                    navigator.storage.persist().then(function (result) {
+                        if (result) {
+                            console.log("Our data is persisted now!!!");
+                        } else {
+                            console.log("Unable to keep our data persisted!!!");
+                        }
+                    });
+                }
+            })
+
+
+
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
