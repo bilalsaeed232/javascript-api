@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FetchApi</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>FetchAPI</h1>
+        <hr>
+        <h3>FetchAPI is AJAX-Style data request API, which makes it easier to handle requests.</h3>
+        <p>Open Developer Tools to see the response from the server.</p>
+    </div>
+
+
+    <script>
+        window.addEventListener("load", init);
+
+        const URL = "https://httpbin.org/json";
+        function init() {
+            fetch(URL).then(function (response) {
+                console.log("Content-type:", response.headers.get('Content-Type'));
+                console.log("Redirected:", response.redirected);
+                console.log("Status:", response.status);
+                console.log("Status Text:", response.statusText);
+                console.log("URL:", response.url);
+            });
+        }
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
