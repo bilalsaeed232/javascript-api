@@ -28,6 +28,14 @@
                 console.log("Status:", response.status);
                 console.log("Status Text:", response.statusText);
                 console.log("URL:", response.url);
+
+                if (response.status == 200) {
+                    return response.text();
+                }
+            }).then(function (returnedData) {
+                console.log("Returned Get Data: ", returnedData);
+            }).catch(function (error) {
+                console.warn("Error:", error);
             });
         }
 
