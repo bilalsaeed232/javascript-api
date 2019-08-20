@@ -12,6 +12,12 @@ Is used to query device network state, can be useful to make decision based on s
 
 ```navigator.connection``` (information about the network)
 
+- ```effectiveType``` (type of network)
+- ```downlink``` (download speed)
+- ```rtt``` (round-trip time)
+
+
+
 ### Events
 ```window.online``` (when network is available)
 
