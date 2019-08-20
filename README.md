@@ -18,11 +18,21 @@ Allow your app to incorporate fullscreen support from browser, full screen can b
 
 - ```document.exitFullscreen()```
     - ```elem.webkitExitFullscreen()```
-    - ```elem.mozCacnelFullScreen()```
+    - ```elem.mozCancelFullScreen()```
     - ```elem.msExitFullscreen()```
 
+##### Events
+- ```fullscreenchange```
+    - ```mozfullscreenchange```
+    - ```webkitfullscreenchange```
+    - ```msfullscreenchange```
+
 #### CSS
-- ```
+- ```:fullscreen button``` (targets the button when document is in fullscreen mode)
+    - ```:-webkit-full-screen button```
+    - ```:-moz-full-screen button```
+    - ```:-ms-fullscreen button```
+    - ```:full-screen button``` (older version of api)
 
 
 
