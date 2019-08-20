@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Page Visibility API</title>
+    <style>
+        #status {
+            border: 1px solid #ccc;
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Page Visibility API</h1>
+        <p>Is more effective API used now in modern browser to check if the page is actually visible or not.</p>
+        <p>Very effective in usecases where your app needs to decide to pause the video or game for example(in order to
+            save resources or network data - when user is not interacting with the app)</p>
+
+
+        <em>Try to change tabs or move to other windows and check back</em>
+
+        <h3>Page Status</h3>
+        <div id="status">
+
+        </div>
+    </div>
+
+    <script>
+
+        window.addEventListener('load', init);
+
+        var statusDiv;
+        function init() {
+            statusDiv = document.getElementById('status');
+
+            statusDiv.innerHTML = "<p>Page Visibility:" + document.visibilityState + "</p>";
+
+            document.addEventListener('visibilitychange', function () {
+                statusDiv.innerHTML += "<p>Page Visibility:" + document.visibilityState + "</p>";
+            });
+        }
+
+    </script>
+</body>
+
+</html>
