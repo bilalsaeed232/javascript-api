@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Network API</title>
+
+    <style>
+        #statusDiv {
+            padding: 20px;
+            border: 1px solid beige;
+            background-color: orange;
+            width: 400px;
+            height: 70px;
+            font-size: 32px;
+            color: #fff;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+
+        #statusDiv.online {
+            background-color: green;
+        }
+
+        #statusDiv.offline {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Network API</h1>
+        <p>Can use network api to query the state of network or get information about the network the web app is running
+            on.</p>
+        <em>Change network state from dev tool to see the difference</em>
+
+
+        <h3>Status</h3>
+        <div id="statusDiv">
+            Checking...
+        </div>
+
+        <hr>
+
+        <h3>Network Information</h3>
+
+
+
+    </div>
+
+
+    <script>
+        window.addEventListener('load', init);
+        window.addEventListener('online', updateNetState);
+        window.addEventListener('offline', updateNetState);
+
+        var statusDiv;
+        function init() {
+            statusDiv = document.getElementById('statusDiv');
+            updateNetState();
+        }
+
+
+
+
+        function updateNetState() {
+            var isOnline = navigator.onLine;
+            if (isOnline) {
+                statusDiv.textContent = "Online";
+                statusDiv.className = 'online';
+            }
+            else {
+                statusDiv.textContent = "Offline";
+                statusDiv.className = 'offline';
+            }
+        }
+
+    </script>
+</body>
+
+</html>
