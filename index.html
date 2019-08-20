@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Notification API</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Notification API</h1>
+        <p>
+            Notification API is used to leverage platform builtin notification system
+            and to be able to create our own custom notifications.
+        </p>
+        <em>This demo shows whats possible with this api both <strong>Basic</strong> and <strong>Custom</strong>
+            notifications</em>
+        <p>
+            <strong>Note:</strong>
+            We need permission from user for notifications first.
+        </p>
+        <br>
+
+        <h3>Request for Notifications</h3>
+        <button id="requestBtn">Request</button>
+
+        <hr>
+
+        <h3>Basic Notification</h3>
+        <button id="basicBtn">Show</button>
+
+        <hr>
+
+        <h3>Custom Notification</h3>
+
+        <button id="customBtn">Show</button>
+
+
+
+    </div>
+
+    <script>
+        window.addEventListener('load', init);
+
+        var requestBtn, basicBtn, customBtn;
+        var notification;
+        function init() {
+            requestBtn = document.getElementById('requestBtn');
+            basicBtn = document.getElementById('basicBtn');
+
+
+            requestBtn.addEventListener('click', function () {
+                Notification.requestPermission().then(function (result) {
+                    console.info("Permission:", result);
+                });
+            });
+
+
+            basicBtn.addEventListener('click', function () {
+                if (Notification.permission === 'granted') {
+                    console.info("ready to go");
+                    notification = new Notification('This is basic notification');
+                }
+            });
+
+
+        }
+
+
+    </script>
+</body>
+
+</html>
