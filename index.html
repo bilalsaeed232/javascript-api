@@ -34,7 +34,10 @@
         <hr>
 
         <h3>Custom Notification</h3>
-
+        <div><label for="title">Title <input id="title" type="text"></label></div>
+        <div><label for="body">Body <input id="body" type="text"></label></div>
+        <div><label for="useIcon">Use Icon? <input id="useIcon" type="checkbox"></label></div>
+        <div><label for="persistent">Persistence? <input id="persistent" type="checkbox"></label></div>
         <button id="customBtn">Show</button>
 
 
@@ -49,7 +52,7 @@
         function init() {
             requestBtn = document.getElementById('requestBtn');
             basicBtn = document.getElementById('basicBtn');
-
+            customBtn = document.getElementById('customBtn');
 
             requestBtn.addEventListener('click', function () {
                 Notification.requestPermission().then(function (result) {
@@ -63,6 +66,32 @@
                     console.info("ready to go");
                     notification = new Notification('This is basic notification');
                 }
+            });
+
+
+            //for user defined custom notification
+            customBtn.addEventListener('click', function () {
+                var title = document.getElementById('title').value || "NO TITLE";
+                var body = document.getElementById('body').value || "NO BODY";
+                var useIcon = document.getElementById('useIcon').checked;
+                var isPersistent = document.getElementById('persistent').checked;
+
+                var notOptions = {}
+                notOptions.title = title;
+                notOptions.body = body;
+                notOptions.icon = './images/pikachu.jpg';
+                notOptions.requireInteraction = isPersistent;
+
+                notification = new Notification(title, notOptions);
+
+
+                //when user click on notification, it redirects user to pokemon wikipedia
+                notification.addEventListener('click', function (evt) {
+                    //first we dismiss current notification
+                    evt.target.close();
+                    window.location = 'https://de.wikipedia.org/wiki/Pok%C3%A9mon';
+                })
+
             });
 
 
