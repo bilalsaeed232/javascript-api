@@ -1,16 +1,45 @@
 # javascript-api
 Javascript modern api example code
 
-## DeviceMemoryAPI
+## DialogAPI
+
+## Code
+
+#### HTML
+```<dialog id="myDialog">```
+
+#### CSS
+```myDialog::backdrop```
+
+#### Javascript
+
+```myDialog.show()```
+
+```myDialog.showModal()```
+
+```myDialog.open```  True | False
+
+```myDialog.close(value)```
+
+```myDialog.returnValue``` (useful in events)
+##### Events
+```close```
+
+```cancel```
+
+
+
+
+
+
 
 ## Description
-Query the device for Memory
+Let you integrate normal and modal dialogs using native HTML 5 element
 
 ## Notes
-- Doesn't tell you exactly how much RAM available for security purposes (to avoid device fingerprinting)
-- It rather gives you round up memory information ```[0.25, 0.5, 1, 2, 4, 8]``` (that's how much **RAM**)
-
+- it has a backdrop option for modal dialogs
+- 
 
 ## References
-- [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/deviceMemory)
-- [W3C](https://www.w3.org/TR/device-memory/)
+- [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
+- [W3C](https://www.w3.org/TR/html52/interactive-elements.html#the-dialog-element)

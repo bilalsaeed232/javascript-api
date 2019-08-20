@@ -5,34 +5,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>DeviceMemory API</title>
+    <title>Dialog API</title>
+
+    <style>
+        dialog {
+            padding: 0;
+            border: 0;
+            background-color: #eee;
+        }
+
+        dialog::backdrop {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .dialog-body,
+        .dialog-footer {
+            padding: 10px;
+        }
+
+        .dialog-header {
+            border-top-left-radius: 0.5em;
+            border-top-right-radius: 0.5em;
+            background-color: orange;
+            color: #555;
+            margin: 0;
+            padding: 5px 30px 0px;
+        }
+
+        .dialog-header h1 {
+            margin-top: 0;
+        }
+
+
+        .dialog-footer button {
+            background-color: teal;
+            border-radius: 5px;
+            color: #fff;
+            padding: 5px 10px;
+            border: 0;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>DeviceMemory API</h1>
-        <p>To query how much memory a device has, only rounds up memory, it doesn't tell exact memory available to avoid
-            device fingerprinting</p>
-        <div>
-            <strong>Device Memory:</strong> <span id="memoryElement"></span>
-        </div>
+        <h1>Dialog API</h1>
+        <p>Two types of dialog can be created using HTML5 Dialog Api</p>
+        <em>Open the console in dev tool to see the return value from ok and cancel buttons on these dialogs.</em>
 
+        <br>
+        <br>
+        <button id="showBtn">Show Normal Dialog</button>
+        <button id="showModalBtn">Show Modal Dialog</button>
+
+        <dialog id="myDialog">
+            <div class="dialog-header">
+                <h1>Dialog title</h1>
+            </div>
+            <div class="dialog-body">
+                <p>Are you sure you want to save?</p>
+            </div>
+            <div class="dialog-footer">
+                <button id="okBtn">OK</button>
+                <button id="cancelBtn">Cancel</button>
+            </div>
+        </dialog>
     </div>
 
-    <script>
 
+    <script>
         window.addEventListener('load', init);
 
-        var memoryElement;
-
+        var myDialog, showBtn, showModalBtn, okBtn, cancelBtn;
         function init() {
-            memoryElement = document.getElementById('memoryElement');
+            myDialog = document.getElementById('myDialog');
+            showBtn = document.getElementById('showBtn');
+            showModalBtn = document.getElementById('showModalBtn');
+            okBtn = document.getElementById('okBtn');
+            cancelBtn = document.getElementById('cancelBtn');
 
-            //feature detection of memory api
-            if (navigator.deviceMemory) {
-                memoryElement.textContent = navigator.deviceMemory + " GB";
-            }
+            showBtn.addEventListener('click', showDialog);
+            showModalBtn.addEventListener('click', showModalDialog);
+
+            okBtn.addEventListener('click', function (evt) {
+                if (myDialog.open) {
+                    myDialog.close("OK");
+                }
+            });
+
+            cancelBtn.addEventListener('click', function (evt) {
+                if (myDialog.open) {
+                    myDialog.close('Cancel');
+                }
+            });
+
+
+            //event listeners on dialog element
+            myDialog.addEventListener('close', function (evt) {
+                console.info('Dialog Closed:', myDialog.returnValue);
+            });
+
+            myDialog.addEventListener('cancel', function (evt) {
+                console.info('Dialog Canceled:', myDialog.returnValue);
+            });
+
+
         }
+
+
+        function showDialog(evt) {
+            myDialog.show();
+        }
+
+        function showModalDialog(evt) {
+            myDialog.showModal();
+        }
+
+
 
     </script>
 </body>
