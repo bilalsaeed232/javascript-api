@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PaintWorklet API</title>
+    <style>
+        #targetElement {
+            width: 500px;
+            height: 500px;
+            border: 1px solid gray;
+
+            /* need this for actually using what we drew from css */
+            background-image: paint(drawcross);
+            /* drawcross was registered in js file */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>PaintWorklet CSS API</h1>
+        <p>
+            Css paint() API lets you use a darwing canvas within CSS Style declaration.
+        </p>
+        <p>Below div uses paint API to render it's background property</p>
+        <p>Note: you can also parameterize these properties like size etc. within css</p>
+
+
+        <div id="targetElement">
+
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', init);
+
+        var targetElement;
+        function init() {
+            targetElement = document.getElementById('targetElement');
+
+            if ('paintWorklet' in CSS) {
+                console.info("paintWorklet supported");
+
+                //in order to link our js painter file
+                CSS.paintWorklet.addModule('csspaint.js');
+
+            }
+            else {
+                console.info("paintWorklet not supported");
+            }
+        }
+
+    </script>
+</body>
+
+</html>
