@@ -14,8 +14,8 @@ It uses ```paintWorklet``` and ```canvas``` to work on drawing elements.
 ##### Javascript
 - ```paintWorklet```
 - ```CSS.paintWorklet.addModule('yourscript.js'')```
-- ```get getProperties()```
-- ```paint(ctx,size,props)``` (ctx = canvasContext, props comes from ```getProperties()```)
+- ```static get inputProperties()``` (returns array of properties to be used in css)
+- ```paint(ctx,size,props)``` (ctx = canvasContext, props comes from ```inputProperties()```)
 - ```registerPaint('propname', ClassName)``` (propname is to be used by css)
 
 ##### CSS
